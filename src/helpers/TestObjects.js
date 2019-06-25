@@ -1,4 +1,4 @@
-export default function isType(value, typename) {
+export const isType = (value, typename) => {
     const regex = /^\[object (\S+?)\]$/;
 
     const matches = Object.prototype.toString.call(value).match(regex) || [];
