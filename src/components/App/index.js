@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Dropdown from "../Dropdown";
+import PeriodCalendar from "../PeriodCalendar";
 
 class App extends Component {
 
@@ -11,9 +12,9 @@ class App extends Component {
       <div>
         <h1>Hello, Groups</h1>
         <Dropdown caption={period}>
-          <p>Include</p>
+          <PeriodCalendar />
         </Dropdown>
-        <span>{period}</span>
+        <span>{String(period)}</span>
       </div>
     );
   }
