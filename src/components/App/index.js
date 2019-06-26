@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import Dropdown from "../Dropdown";
+
 class App extends Component {
 
   render() {
@@ -8,6 +10,9 @@ class App extends Component {
     return (
       <div>
         <h1>Hello, Groups</h1>
+        <Dropdown caption={period}>
+          <p>Include</p>
+        </Dropdown>
         <span>{period}</span>
       </div>
     );
