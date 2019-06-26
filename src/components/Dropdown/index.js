@@ -28,7 +28,7 @@ class Dropdown extends Component {
           className="dropdown__toggle"
           onClick={this.handleClick}
         >
-          {caption}
+          {String(caption)}
         </button>
         { loadPane }
       </div>
