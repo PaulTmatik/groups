@@ -8,6 +8,8 @@ class Dropdown extends Component {
     }
 
     this.toggleShowPane = this.toggleShowPane.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
   }
 
   render() {
@@ -18,8 +20,16 @@ class Dropdown extends Component {
       </div>
     ) : null;
     return (
-      <div className="dropdown">
-        <button className="dropdown__toggle" onClick={this.toggleShowPane}>{caption}</button>
+      <div 
+        className="dropdown"
+        ref={node => { this.node = node; }}
+      >
+        <button 
+          className="dropdown__toggle"
+          onClick={this.handleClick}
+        >
+          {caption}
+        </button>
         { loadPane }
       </div>
     );
@@ -31,6 +41,22 @@ class Dropdown extends Component {
         isPaneShown: !prevState.isPaneShown
       }
     });
+  }
+
+  handleClick() {
+    if (!this.state.isPaneShown) {
+      document.addEventListener('click', this.handleOutsideClick, false);
+    }
+    else {
+      document.removeEventListener('click', this.handleOutsideClick, false);
+    }
+
+    this.toggleShowPane();
+  }
+
+  handleOutsideClick(e) {
+    if (this.node.contains(e.target)) return;
+    this.handleClick();
   }
 }
 
