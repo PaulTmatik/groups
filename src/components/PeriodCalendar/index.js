@@ -21,8 +21,9 @@ class PeriodCalendar extends Component {
           <button className="period-calendar__button">&gt;</button>
         </div>
         <div className="period-calendar__body">
-        {this.createPeriodsSetFromCurrent(period).map(periodItem => (
-          <button 
+        {this.createPeriodsSetFromCurrent(period).map((periodItem, index) => (
+          <button
+            key={index}
             onClick={() => this.handleSetPeriodClick(periodItem)}
           >
             {String(periodItem)}
