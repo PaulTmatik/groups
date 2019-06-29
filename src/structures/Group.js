@@ -10,13 +10,40 @@ class Group {
     this._endedIn = endedIn;
   }
 
-  get cource() {
+  get guid() {
+    return this._guid;
+  }
+
+  get startedAt() {
+    return this._startedAt;
+  }
+
+  get endedIn() {
+    return this._endedIn;
+  }
+
+  get maxCource() {
     const {years} = dateDiff(this._startedAt, this._endedIn);
     return years +1;
   }
 
-  get name() {
-    return this._formatedName.replace(/\{0\}|%n/, this.cource);
+  get currentCource() {
+    const {years} = dateDiff(new Date(), this._endedIn);
+    return this.maxCource - years;
+  }
+
+  getNameFromDate(date) {
+    if (!isType(date, "date"))
+      throw new Error("Аргумент должен иметь тип данных Date");
+    const regEx = /\{0\}|%n/;
+    if (date.getTime() > this._endedIn.getTime())
+      return this._formatedName.replace(regEx, this.maxCource);
+    const {years} = dateDiff(date, this._endedIn);
+    return this._formatedName.replace(regEx, this.maxCource - years);
+  }
+
+  get isEnded() {
+    return (new Date()).getFullYear() > this._endedIn.getFullYear();
   }
 }
 
