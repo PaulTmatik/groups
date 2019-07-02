@@ -7,6 +7,6 @@ export const pluralize = (number, variants) => {
   if (vars.length >= 2 && (units > 1 && units < 5))
     return `${number} ${vars[1]}`;
   if (vars.length === 3 && (units > 4 || units === 0))
-    return `${number} ${vars[2]}`;
+    return `${number ? number : "Нет"} ${vars[2]}`;
   return `${number} ${variants}`;
 }
