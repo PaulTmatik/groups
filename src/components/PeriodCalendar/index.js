@@ -50,8 +50,7 @@ class PeriodCalendar extends Component {
   }
 
   handleSetCurrentPeriodClick = () => {
-    const {dispatch} = this.props;
-    dispatch(setPeriod(new Period(new Date())));
+    this.handleSetPeriodClick(new Period(new Date()));
     return;
   }
 }
