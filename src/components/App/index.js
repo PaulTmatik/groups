@@ -7,7 +7,7 @@ import PeriodCalendar from "../PeriodCalendar";
 class App extends Component {
 
   render() {
-    const { period } = this.props;
+    const { period, groups } = this.props;
     return (
       <div>
         <h1>Hello, Groups</h1>
@@ -15,13 +15,19 @@ class App extends Component {
           <PeriodCalendar />
         </Dropdown>
         <span>{String(period)}</span>
+        {groups.map(group => (
+          <div className="group" key={group.guid}>
+            <h2>{group.getNameFromDate(period.end)}</h2>
+          </div>
+        ))}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  period: state.period
+  period: state.period,
+  groups: state.groups
 })
 
 export default connect(mapStateToProps)(App);
