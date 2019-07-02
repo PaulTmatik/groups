@@ -1,6 +1,14 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import rootReducer from "../reducers";
 
-const store = createStore(rootReducer);
+import { logger, groupsFilter } from "../middlewares";
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(
+    logger,
+    groupsFilter
+  )
+);
 
 export default store;
