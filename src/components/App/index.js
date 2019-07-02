@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import Dropdown from "../Dropdown";
 import PeriodCalendar from "../PeriodCalendar";
+import GroupCard from "../GroupCard";
 
 class App extends Component {
 
@@ -16,9 +17,12 @@ class App extends Component {
         </Dropdown>
         <span>{String(period)}</span>
         {groups.map(group => (
-          <div className="group" key={group.guid}>
-            <h2>{group.getNameFromDate(period.end)}</h2>
-          </div>
+          <GroupCard
+            key={group.guid}
+            name={group.getNameFromDate(period.end)}
+            guid={group.guid}
+            studentsCount={group.studentsCount}
+          />
         ))}
       </div>
     );
