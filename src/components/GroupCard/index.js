@@ -4,7 +4,7 @@ import { pluralize } from "../../helpers";
 
 class GroupCard extends Component {
   render() {
-    const { name, guid, studentsCount } = this.props;
+    const { name, guid, startedAt, endedIn, studentsCount } = this.props;
 
     return (
       <div className="group-card">
@@ -12,6 +12,8 @@ class GroupCard extends Component {
         <pre><small>{guid}</small></pre>
         {studentsCount !== undefined ? 
           <div>{pluralize(studentsCount, "студент|студента|студентов")}</div> : null}
+        <div>Начало: {startedAt.toLocaleDateString("ru-RU")}</div>
+        <div>Выпуск: {endedIn.toLocaleDateString("ru-RU")}</div>
       </div>
     );
   }

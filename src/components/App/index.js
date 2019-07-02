@@ -21,6 +21,8 @@ class App extends Component {
             key={group.guid}
             name={group.getNameFromDate(period.end)}
             guid={group.guid}
+            startedAt={group.startedAt}
+            endedIn={group.endedIn}
             studentsCount={group.studentsCount}
           />
         ))}
