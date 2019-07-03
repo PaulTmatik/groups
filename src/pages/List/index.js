@@ -19,7 +19,7 @@ class ListPage extends Component {
             startedAt={group.startedAt}
             endedIn={group.endedIn}
             studentsCount={group.studentsCount}
-            onClick={() => this.handleLocationChange(group.guid)}
+            onClick={() => this.handleLocationChange(group)}
           />
         ))}
       </div>

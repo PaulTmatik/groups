@@ -5,6 +5,7 @@ import Dropdown from "../Dropdown";
 import PeriodCalendar from "../PeriodCalendar";
 
 import ListPage from "../../pages/List";
+import GroupDetail from "../../pages/Detail";
 
 import { changeLocation, goBack } from "../../actions";
 
@@ -35,11 +36,7 @@ class App extends Component {
       case "list":
         return <ListPage />
       case "detail":
-        return (
-          <div className="page">
-            {lastLocation.param}
-          </div>
-        );
+        return <GroupDetail group={lastLocation.param} />
       default:
         return null;
     }
