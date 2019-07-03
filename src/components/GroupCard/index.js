@@ -7,14 +7,17 @@ class GroupCard extends Component {
     const { name, guid, startedAt, endedIn, studentsCount } = this.props;
 
     return (
-      <div className="group-card">
+      <button 
+        className="group-card"
+        onClick={this.props.onClick}
+      >
         <h2 className="group-card__title">{name}</h2>
         <pre><small>{guid}</small></pre>
         {studentsCount !== undefined ? 
           <div>{pluralize(studentsCount, "студент|студента|студентов")}</div> : null}
         <div>Начало: {startedAt.toLocaleDateString("ru-RU")}</div>
         <div>Выпуск: {endedIn.toLocaleDateString("ru-RU")}</div>
-      </div>
+      </button>
     );
   }
 }
