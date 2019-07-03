@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 
 import Dropdown from "../Dropdown";
 import PeriodCalendar from "../PeriodCalendar";
-import GroupCard from "../GroupCard";
+
+import ListPage from "../../pages/List";
 
 import { changeLocation, goBack } from "../../actions";
 
@@ -28,25 +29,11 @@ class App extends Component {
   }
 
   switchLocation() {
-    const { location, groups, period } = this.props;
+    const { location } = this.props;
     const lastLocation = location.slice(-1)[0];
     switch (lastLocation.name) {
       case "list":
-        return (
-          <div className="page">
-            {groups.map(group => (
-              <GroupCard
-                key={group.guid}
-                name={group.getNameFromDate(period.end)}
-                guid={group.guid}
-                startedAt={group.startedAt}
-                endedIn={group.endedIn}
-                studentsCount={group.studentsCount}
-                onClick={() => this.handleLocationChange(group.guid)}
-              />
-            ))}
-          </div>
-        );
+        return <ListPage />
       case "detail":
         return (
           <div className="page">
