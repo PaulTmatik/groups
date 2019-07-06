@@ -7,7 +7,6 @@ class GroupDetail extends Component {
   componentWillMount() {
     const { dispatch, group } = this.props;
     dispatch(getActualStudents(group.guid, new Date()));
-    console.log("created");
   }
 
   render() {
