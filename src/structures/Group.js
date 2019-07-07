@@ -37,18 +37,28 @@ class Group {
     return this.maxCource - years;
   }
 
+  get isEnded() {
+    return (new Date()).getFullYear() > this._endedIn.getFullYear();
+  }
+
   getNameFromDate(date) {
     if (!isType(date, "date"))
       throw new Error("Аргумент должен иметь тип данных Date");
-    const regEx = /\{0\}|%n/;
-    if (date.getTime() > this._endedIn.getTime())
-      return this._formatedName.replace(regEx, this.maxCource);
-    const {years} = dateDiff(date, this._endedIn);
-    return this._formatedName.replace(regEx, this.maxCource - years);
+
+    if (date.getTime() < this.startedAt.getTime()) date = this.startedAt;
+    if (date.getTime() > this.endedIn.getTime()) date = this.endedIn;
+
+    const {years} = dateDiff(date, this.endedIn);
+    const { regEx, calcedMaxCource } = this.getMinMaxCourceReplacer();
+    return this._formatedName.replace(regEx, calcedMaxCource - years);
   }
 
-  get isEnded() {
-    return (new Date()).getFullYear() > this._endedIn.getFullYear();
+  getMinMaxCourceReplacer() {
+    const regEx = /(\{0|%№)(\+[0-9])?(\}|%)/;
+    const found = this._formatedName.match(regEx);
+    const addition = found[2] ? Number(found[2].substring(1)) : 0;
+    const calcedMaxCource = this.maxCource + addition;
+    return { regEx, calcedMaxCource };
   }
 }
 
