@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import Period from "../../structures/Period";
 import { getActualStudents } from "../../actions";
 
 class GroupDetail extends Component {
@@ -12,7 +13,7 @@ class GroupDetail extends Component {
   render() {
     const { group, period, students } = this.props;
     const originalGroupName = !period.isCurrent()
-      ? <div>Текущее имя группы {group.getNameFromDate(new Date())}</div>
+      ? <div>Текущее имя группы {group.getNameFromDate((new Period(new Date())).end)}</div>
       : null;
     return (
       <div className="page">
