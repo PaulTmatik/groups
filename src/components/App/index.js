@@ -10,6 +10,12 @@ import GroupDetail from "../../pages/Detail";
 import { changeLocation, goBack } from "../../actions";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isModalShown: false
+    }
+  }
 
   render() {
     const { period } = this.props;
@@ -23,6 +29,7 @@ class App extends Component {
         <Dropdown caption={period}>
           <PeriodCalendar />
         </Dropdown>
+        {this.getToolbar()}
         <span>{String(period)}</span>
         {this.switchLocation()}
       </div>
@@ -30,13 +37,38 @@ class App extends Component {
   }
 
   switchLocation() {
-    const { location } = this.props;
-    const lastLocation = location.slice(-1)[0];
-    switch (lastLocation.name) {
+    const curentLocation = this.getLocation();
+    switch (curentLocation.name) {
       case "list":
-        return <ListPage />
+        return <ListPage 
+          isModalShown={this.state.isModalShown}
+          onCloseModal={this.closeModal}
+        />
       case "detail":
-        return <GroupDetail group={lastLocation.param} />
+        return <GroupDetail group={curentLocation.param} />
+      default:
+        return null;
+    }
+  }
+
+  closeModal = () => {
+    this.setState({isModalShown: false});
+  }
+
+  openModal = () => {
+    this.setState({isModalShown: true});
+  }
+
+  getToolbar() {
+    const curentLocation = this.getLocation();
+    switch (curentLocation.name) {
+      case "list":
+        return (
+          <div className="toolbar">
+            <button onClick={this.openModal}>Добавить группу</button>
+          </div>
+        );
+    
       default:
         return null;
     }
@@ -57,6 +89,11 @@ class App extends Component {
     const { dispatch } = this.props;
     dispatch(goBack(param));
     return;
+  }
+
+  getLocation() {
+    const { location } = this.props;
+    return location.slice(-1)[0];
   }
 }
 

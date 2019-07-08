@@ -4,10 +4,11 @@ import { connect } from "react-redux";
 import { changeLocation } from "../../actions";
 
 import GroupCard from "../../components/GroupCard";
+import Modal from "../../components/Modal";
 
 class ListPage extends Component {
   render() {
-    const { period, groups } = this.props;
+    const { period, groups, onCloseModal } = this.props;
 
     return (
       <div className="page">
@@ -22,6 +23,9 @@ class ListPage extends Component {
             onClick={() => this.handleLocationChange(group)}
           />
         ))}
+        {this.props.isModalShown ? (
+          <Modal onCloseModal={onCloseModal}>Test Modal</Modal>
+        ) : null}
       </div>
     )
   }
