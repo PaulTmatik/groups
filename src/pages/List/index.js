@@ -6,6 +6,8 @@ import { changeLocation } from "../../actions";
 import GroupCard from "../../components/GroupCard";
 import Modal from "../../components/Modal";
 
+import AddItemForm from "./AddItem";
+
 class ListPage extends Component {
   render() {
     const { period, groups, onCloseModal } = this.props;
@@ -24,7 +26,9 @@ class ListPage extends Component {
           />
         ))}
         {this.props.isModalShown ? (
-          <Modal onCloseModal={onCloseModal}>Test Modal</Modal>
+          <Modal onCloseModal={onCloseModal}>
+            <AddItemForm />
+          </Modal>
         ) : null}
       </div>
     )
