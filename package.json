@@ -20,9 +20,6 @@
     "eject": "react-scripts eject",
     "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron ."
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -34,9 +31,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "eslint": "^6.0.1",
-    "eslint-plugin-react": "^7.14.2"
   }
 }
