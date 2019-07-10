@@ -9,6 +9,11 @@ import Modal from "../../components/Modal";
 import AddItemForm from "./AddItem";
 
 class ListPage extends Component {
+  componentWillMount() {
+    const { onCloseModal } = this.props;
+    onCloseModal();
+  }
+  
   render() {
     const { period, groups, onCloseModal } = this.props;
 
