@@ -12,12 +12,14 @@ class GroupDetail extends Component {
 
   render() {
     const { group, period, students } = this.props;
-    const originalGroupName = !period.isCurrent()
+    const calcedGroupName = group.getNameFromDate(period.end);
+    const currentGroupName = group.getNameFromDate((new Period(new Date())).end);
+    const originalGroupName = (!period.isCurrent() && currentGroupName !== calcedGroupName)
       ? <div>Текущее имя группы {group.getNameFromDate((new Period(new Date())).end)}</div>
       : null;
     return (
       <div className="page">
-        <h1>{group.getNameFromDate(period.end)}</h1>
+        <h1>{calcedGroupName}</h1>
         {originalGroupName}
         {group.guid}
         <div>
