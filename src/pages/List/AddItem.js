@@ -55,7 +55,9 @@ class AddItemForm extends Component {
 
   changeHandler = () => {
     const { onChange } = this.props;
-    if (this.state.startPeriod && this.state.endPeriod) {
+    if (this.state.startPeriod && 
+        this.state.endPeriod && 
+        this.state.groupName) {
       onChange(
         new Group(null,
           this.state.groupName,
