@@ -8,3 +8,10 @@ export const getGroupsOnPeriod = period => {
     }
   }
 }
+
+export const saveGroup = group => {
+  return {
+    type: ACTIONS_NAMES.GROUPS_SAVE,
+    group
+  }
+}

@@ -15,6 +15,10 @@ class Group {
     return this._guid;
   }
 
+  set guid(value) {
+    this._guid = value;
+  }
+
   get startedAt() {
     return this._startedAt;
   }

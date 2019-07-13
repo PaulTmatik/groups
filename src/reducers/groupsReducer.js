@@ -1,5 +1,6 @@
 import Group from "../structures/Group";
 import { ACTIONS_NAMES } from "../actions";
+import { uuidGen } from "../helpers";
 
 const groupsList = [
   new Group(
@@ -17,14 +18,18 @@ const groupsList = [
 ];
 
 const groupsReducer = (state = groupsList, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case ACTIONS_NAMES.GROUPS_GET_ON_PERIOD:
       return groupsList.filter(group => {
-        const {period} = action.payload;
+        const { period } = action.payload;
         if (period.end.getTime() >= group.startedAt.getTime())
           return true;
         return false;
       });
+    case ACTIONS_NAMES.GROUPS_SAVE:
+      action.group.guid = uuidGen();
+      groupsList.push(action.group);
+      return groupsList;
     default:
       return state;
   }

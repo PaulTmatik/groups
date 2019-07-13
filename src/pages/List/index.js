@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { changeLocation } from "../../actions";
+import { changeLocation, saveGroup } from "../../actions";
 
 import GroupCard from "../../components/GroupCard";
 import Modal from "../../components/Modal";
@@ -9,11 +9,18 @@ import Modal from "../../components/Modal";
 import AddItemForm from "./AddItem";
 
 class ListPage extends Component {
+  constructor () {
+    super();
+    this.state = {
+      saveableGroup: null,
+      isSaveButtonEnabled: false
+    }
+  }
   componentWillMount() {
     const { onCloseModal } = this.props;
     onCloseModal();
   }
-  
+
   render() {
     const { period, groups, onCloseModal } = this.props;
 
@@ -31,12 +38,38 @@ class ListPage extends Component {
           />
         ))}
         {this.props.isModalShown ? (
-          <Modal onCloseModal={onCloseModal}>
-            <AddItemForm />
+          <Modal
+            onCloseModal={onCloseModal}
+            onSaveEvent={this.onSaveHandle}
+            isSaveButtonEnabled={this.state.isSaveButtonEnabled}
+          >
+            <AddItemForm
+              onChange={this.addItemChangeHandler}
+              onSubmit={this.onSaveHandle}
+            />
           </Modal>
         ) : null}
       </div>
     )
+  }
+
+  addItemChangeHandler = group => {
+    this.setState({saveableGroup: group}, () => {
+      this.saveButtonEnabledHandle();
+    });
+  }
+
+  onSaveHandle = () => {
+    if (this.state.saveableGroup) {
+      const { dispatch, onCloseModal } = this.props;
+      dispatch(saveGroup(this.state.saveableGroup));
+      onCloseModal();
+    }
+  }
+
+  saveButtonEnabledHandle = () => {
+    const {saveableGroup} = this.state;
+    this.setState({isSaveButtonEnabled: Boolean(saveableGroup)})
   }
 
   handleLocationChange(param) {
