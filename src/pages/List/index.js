@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { changeLocation, saveGroup } from "../../actions";
+import { changeLocation, saveGroup, toggleIsActionOnlyFlag } from "../../actions";
 
 import GroupCard from "../../components/GroupCard";
 import Modal from "../../components/Modal";
@@ -9,11 +9,12 @@ import Modal from "../../components/Modal";
 import AddItemForm from "./AddItem";
 
 class ListPage extends Component {
-  constructor () {
+  constructor() {
     super();
     this.state = {
       saveableGroup: null,
-      isSaveButtonEnabled: false
+      isSaveButtonEnabled: false,
+      isActualOnly: false
     }
   }
   componentWillMount() {
@@ -23,6 +24,7 @@ class ListPage extends Component {
 
   render() {
     const { period, groups, onCloseModal } = this.props;
+    const { isActualGroupOnly } = this.props.appstate;
 
     return (
       <div className="page">
@@ -37,6 +39,7 @@ class ListPage extends Component {
             onClick={() => this.handleLocationChange(group)}
           />
         ))}
+        <label><input type="checkbox" onChange={this.isActualOnlyChangeHandler} checked={isActualGroupOnly} /> Только актуальные</label>
         {this.props.isModalShown ? (
           <Modal
             onCloseModal={onCloseModal}
@@ -54,7 +57,7 @@ class ListPage extends Component {
   }
 
   addItemChangeHandler = group => {
-    this.setState({saveableGroup: group}, () => {
+    this.setState({ saveableGroup: group }, () => {
       this.saveButtonEnabledHandle();
     });
   }
@@ -68,8 +71,8 @@ class ListPage extends Component {
   }
 
   saveButtonEnabledHandle = () => {
-    const {saveableGroup} = this.state;
-    this.setState({isSaveButtonEnabled: Boolean(saveableGroup)})
+    const { saveableGroup } = this.state;
+    this.setState({ isSaveButtonEnabled: Boolean(saveableGroup) })
   }
 
   handleLocationChange(param) {
@@ -77,11 +80,17 @@ class ListPage extends Component {
     dispatch(changeLocation("detail", param));
     return;
   }
+
+  isActualOnlyChangeHandler = () => {
+    const { dispatch } = this.props;
+    dispatch(toggleIsActionOnlyFlag());
+  }
 }
 
 const mapStateToProps = state => ({
   period: state.period,
-  groups: state.groups
+  groups: state.groups,
+  appstate: state.appstate
 });
 
 export default connect(mapStateToProps)(ListPage);

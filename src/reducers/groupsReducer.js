@@ -21,10 +21,13 @@ const groupsReducer = (state = groupsList, action) => {
   switch (action.type) {
     case ACTIONS_NAMES.GROUPS_GET_ON_PERIOD:
       return groupsList.filter(group => {
-        const { period } = action.payload;
-        if (period.end.getTime() >= group.startedAt.getTime())
+        const { period, isActualOnly } = action;
+        if (!isActualOnly)
           return true;
-        return false;
+        else if (getIsActual(isActualOnly, group, period))
+          return true;
+        else
+          return false;
       });
     case ACTIONS_NAMES.GROUPS_SAVE:
       action.group.guid = uuidGen();
@@ -35,4 +38,12 @@ const groupsReducer = (state = groupsList, action) => {
   }
 }
 
+function getIsActual(isActualOnly, group, period) {
+  return isActualOnly 
+    && group.endedIn.getTime() > period.end.getTime() 
+    && period.end.getTime() >= group.startedAt.getTime();
+}
+
 export default groupsReducer;
+
+
