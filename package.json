@@ -4,7 +4,7 @@
   "private": true,
   "main": "src/electron-entry.js",
   "dependencies": {
-    "electron": "^5.0.6",
+    "electron": "^7.2.4",
     "pg": "^7.11.0",
     "react": "^16.8.6",
     "react-append-to-body": "^2.0.24",
